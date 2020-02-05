@@ -54,7 +54,7 @@ namespace Snake
             Console.Write(sym);
         }
 
-        internal void Clear()
+        public void Clear()
         {
             sym = ' ';
             Draw();
@@ -63,6 +63,11 @@ namespace Snake
         public override string ToString()
         {
             return $"{x},{y},{sym}";
+        }
+
+        public bool IsHit(Point p)
+        {
+            return p.x == this.x && p.y == this.y;
         }
     }
 }

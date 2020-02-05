@@ -24,21 +24,34 @@ namespace Snake
             rigthLine.Draw();
 
             // змейка
-            Snake snake = new Snake(new Point(10, 15, '*'), 10, Direction.Right);
+            Point tailPoint = new Point(10, 15, '*');
+            Snake snake = new Snake(tailPoint, 5, Direction.Right);
             snake.Draw();
+
+            FoodCreator foodCreator = new FoodCreator(30, 120, '@');
+            Point food = foodCreator.CreateFood();
+            food.Draw();
 
             while (true)
             {
+                if (snake.Eat(food))
+                {
+                    food = foodCreator.CreateFood();
+                    food.Draw();
+                }
+                else
+                {
+                    snake.Move();
+                }
+
+                Thread.Sleep(100);
+
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
                     snake.HandleKey(key.Key);
                 }
-                Thread.Sleep(100);
-                snake.Move();
             }
-
-            Console.ReadLine();
         }
     }
 }
